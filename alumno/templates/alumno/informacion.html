@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}Info de Alumnos{% endblock %}
+
+{% block navbar_titulo %}Alumno{% endblock %}
+
+{% block contenido %}
+<div class="container">
+
+    <div class="formulario mb-5">
+        <div class="card">
+            
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Envia formulario</p>
+            {% if seEnvio %}
+                <p>El formulario se envio</p>
+            {% endif %}
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" required name="nombre" placeholder="Nombre" class="form-control mb-3">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card p-3 shadow-lg border-0">
+                <div class="card-title">
+                    {% if nombre %}
+                    <h3>{{ nombre }}</h3>
+                    {% else %}
+                    <h3>Katia</h3>
+                    {% endif %}
+                    <hr>
+                </div>
+        <div class="card-body">
+            <p>Matricula: {{ alumno1.matricula }}</p>
+            {% if alumno1.edad > 18 %}
+                <p>Es mayor de edad</p>
+            {% endif %}
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

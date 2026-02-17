@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block contenido %}
+    <form id="formulario" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="mensaje"></div>
+    <script>
+        const form = document.getElementById('formulario');
+        const mensaje = document.getElementById('mensaje');
+
+        form.addEventListener('submit', async(e)=>{
+            e.preventDefault(); //No envies el formulario
+
+            const formData = new FormData(form);
+            
+            try{
+                const response = await fetch("", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        "X-Requested-With":"XMLHttpRequest"
+                    }
+                });
+                const data = await response.json();
+                if(data.status === 'ok'){
+                    mensaje.innerHTML = `<p style ="color: green; ">${data.mensaje}</p>`;
+                    form.reset();
+                }else{
+                    mensaje.innerHTML = `<p style ="color: red; ">
+                        Error: ${JSON.stringify(data.errors)}
+                        </p>`
+                }
+            }catch(e){
+                console.error('Error: ', e)
+            }
+        });
+    </script>
+{% endblock %}
