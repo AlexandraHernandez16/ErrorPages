@@ -10,11 +10,6 @@ class productoDfr(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creación")
     fecha_actualizacion = models.DateTimeField(auto_now=True, verbose_name="Última Actualización")
 
-    class Meta:
-        verbose_name = "productoDfr"
-        verbose_name_plural = "productosDfr"
-        ordering = ['-fecha_creacion']
-
     def __str__(self):
         return f"{self.nombre} - ${self.precio}"
 

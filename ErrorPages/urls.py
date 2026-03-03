@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/productos/', include('producto_api.urls')),
     
     # API de Productos DRF (Django REST Framework)
-    path('api/productos-drf/', include('producto_drf.urls')),
+    path('', include('producto_drf.urls')),
 ]
