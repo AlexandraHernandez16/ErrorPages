@@ -28,18 +28,3 @@ class ProductoDfrSerializer(serializers.ModelSerializer):
             producto.save()
 
         return producto
-
-    def update(self, instance, validated_data):
-        # Extraemos el segundo archivo (el que va a la base de datos), es nulo si no lo mandaron
-        archivo_binario = validated_data.pop('foto_para_binario', None)
-
-        # Actualizamos los campos normales
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-
-        # Si nos mandaron un nuevo archivo binario, lo guardamos
-        if archivo_binario:
-            instance.foto_binaria = archivo_binario.read()
-
-        instance.save()
-        return instance

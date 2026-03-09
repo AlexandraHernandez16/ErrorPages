@@ -13,7 +13,7 @@ class productoDfr(models.Model):
     fecha_actualizacion = models.DateTimeField(auto_now=True, verbose_name="Última Actualización")
 
     # CAMPO PARA GUARDAR LA IMAGEN EN EL BACK
-    # upload_to='mascotas/' creará una carpeta llamada "mascotas" dentro de tu directorio "media"
+    # upload_to='productos/' creará una carpeta llamada "productos" dentro de tu directorio "media"
     foto = models.ImageField(upload_to='productos/', blank=True, null=True)
 
     # CAMPO BINARIO PARA LA IMAGEN EN LA BD
