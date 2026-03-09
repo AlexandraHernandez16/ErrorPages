@@ -1,3 +1,5 @@
+import base64
+
 from django.db import models
 
 class productoDfr(models.Model):
@@ -10,8 +12,23 @@ class productoDfr(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creación")
     fecha_actualizacion = models.DateTimeField(auto_now=True, verbose_name="Última Actualización")
 
+    # CAMPO PARA GUARDAR LA IMAGEN EN EL BACK
+    # upload_to='mascotas/' creará una carpeta llamada "mascotas" dentro de tu directorio "media"
+    foto = models.ImageField(upload_to='productos/', blank=True, null=True)
+
+    # CAMPO BINARIO PARA LA IMAGEN EN LA BD
+    foto_binaria = models.BinaryField(blank=True, null=True)
+
     def __str__(self):
         return f"{self.nombre} - ${self.precio}"
+
+    @property
+    def foto_base64(self):
+        if self.foto_binaria:
+            # Convierte los bytes a un string codificado en base64
+            codificado = base64.b64encode(self.foto_binaria).decode('utf-8')
+            return f"data:image/jpeg;base64,{codificado}"
+        return None
 
     def vender(self, cantidad=1):
         if self.stock >= cantidad:
